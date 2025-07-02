@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "All Books", href: "/" },
+    { name: "All Books", href: "/all-books" },
     { name: "Add Book", href: "/add-book" },
     { name: "Borrow Summary", href: "/borrow-summary" },
   ];
