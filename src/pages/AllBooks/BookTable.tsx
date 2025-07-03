@@ -68,14 +68,14 @@ const BookTable = ({ books }: BookTableProps) => {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer"
+                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-gray-900 text-white hover:bg-gray-800 hover:text-white border border-gray-700"
                   >
                     Edit
                   </Button>
                   <Button
                     size="sm"
                     variant="default"
-                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer"
+                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
                   >
                     Borrow
                   </Button>
@@ -83,7 +83,7 @@ const BookTable = ({ books }: BookTableProps) => {
                 <Button
                   size="sm"
                   variant="destructive"
-                  className="w-full h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer"
+                  className="w-full h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-red-50 text-red-700 hover:bg-red-100 border border-red-200"
                 >
                   Delete
                 </Button>
@@ -131,21 +131,21 @@ const BookTable = ({ books }: BookTableProps) => {
                     <Button
                       size="sm"
                       variant="outline"
-                      className="h-6 px-3 cursor-pointer"
+                      className="h-6 px-3 cursor-pointer bg-gray-900 hover:text-gray-200  text-white hover:bg-gray-800 border border-gray-700"
                     >
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       variant="default"
-                      className="h-6 px-3 cursor-pointer"
+                      className="h-6 px-3 cursor-pointer bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
                     >
                       Borrow
                     </Button>
                     <Button
                       size="sm"
                       variant="destructive"
-                      className="h-6 px-3 cursor-pointer"
+                      className="h-6 px-3 cursor-pointer bg-red-50 text-red-700 hover:bg-red-100 border border-red-200"
                     >
                       Delete
                     </Button>
