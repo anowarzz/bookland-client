@@ -1,4 +1,3 @@
-import App from "@/App";
 import Main from "@/components/layout/Main/Main";
 import AddBook from "@/pages/AddBook/AddBook";
 import AllBooks from "@/pages/AllBooks/AllBooks";
