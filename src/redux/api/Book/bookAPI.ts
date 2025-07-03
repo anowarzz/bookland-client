@@ -9,7 +9,15 @@ export const bookApi = createApi({
     getAllBooks: builder.query({
       query: () => "/books",
     }),
+
+    addBook: builder.mutation({
+      query: (bookData) => ({
+        url: "/create-book",
+        method: "POST",
+        body: bookData,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllBooksQuery } = bookApi;
+export const { useGetAllBooksQuery, useEditBookMutation } = bookApi;

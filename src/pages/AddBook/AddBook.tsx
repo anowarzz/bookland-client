@@ -1,10 +1,11 @@
+import AddBookModal from "./AddBookModal";
+
 const AddBook = () => {
-    return (
-        <div>
-            Welcome to AddBook component
-            
-        </div>
-    );
+  return (
+    <div>
+      <AddBookModal />
+    </div>
+  );
 };
 
 export default AddBook;
