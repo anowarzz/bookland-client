@@ -19,7 +19,7 @@ interface BookTableProps {
 }
 
 const BookTable = ({ books }: BookTableProps) => {
-  const [deleteBook, { isError: deleteError, isLoading: deleteLoading }] =
+  const [deleteBook, { isLoading: deleteLoading }] =
     useDeleteBookMutation();
   const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
 

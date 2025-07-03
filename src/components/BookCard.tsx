@@ -7,7 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const BookCard = ({ book }: BookProps) => {
-  const [deleteBook, { isError: deleteError, isLoading: deleteLoading }] =
+  const [deleteBook, { isLoading: deleteLoading }] =
     useDeleteBookMutation();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 

@@ -37,7 +37,7 @@ const AddBookForm = () => {
     },
   });
 
-  const [addBook, { data, isLoading, error, isError }] = useAddBookMutation();
+  const [addBook, { isLoading, isError }] = useAddBookMutation();
 
   const onSubmit: SubmitHandler<BookFormData> = async (data) => {
     try {
@@ -71,8 +71,7 @@ const AddBookForm = () => {
         {isError && (
           <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
             <p className="text-red-600 text-sm">
-              {error?.data?.error?.message ||
-                "Failed to add book. Please try again."}
+              {"Failed to add book. Please try again."}
             </p>
           </div>
         )}
