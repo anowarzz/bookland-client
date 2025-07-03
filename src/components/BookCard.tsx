@@ -1,14 +1,16 @@
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
+import EditBookModal from "@/components/EditBookModal";
 import { Button } from "@/components/ui/button";
 import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { BookProps } from "@/types";
-import { BookOpen, Edit, RotateCcw, Trash2 } from "lucide-react";
+import { BookOpen, Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const BookCard = ({ book }: BookProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleDeleteBook = async (bookId: string) => {
     try {
@@ -67,13 +69,20 @@ const BookCard = ({ book }: BookProps) => {
 
             {/* Edit and Delete Icons - Mobile */}
             <div className="flex gap-3 md:hidden">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-7 w-7 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
-              >
-                <Edit size={12} />
-              </Button>
+              <EditBookModal
+                book={book}
+                isOpen={isEditDialogOpen}
+                onOpenChange={setIsEditDialogOpen}
+                trigger={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-7 w-7 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
+                  >
+                    <Edit size={12} />
+                  </Button>
+                }
+              />
 
               <DeleteConfirmationModal
                 trigger={
@@ -96,13 +105,20 @@ const BookCard = ({ book }: BookProps) => {
 
             {/* Desktop Action Icons */}
             <div className="hidden md:flex gap-1 flex-1 justify-end">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 w-8 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
-              >
-                <Edit size={14} />
-              </Button>
+              <EditBookModal
+                book={book}
+                isOpen={isEditDialogOpen}
+                onOpenChange={setIsEditDialogOpen}
+                trigger={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 w-8 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
+                  >
+                    <Edit size={14} />
+                  </Button>
+                }
+              />
 
               <DeleteConfirmationModal
                 trigger={
@@ -128,47 +144,29 @@ const BookCard = ({ book }: BookProps) => {
                 className={`h-8 px-2 flex items-center gap-1 ${
                   book.available
                     ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
-                    : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
+                    : "bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
                 }`}
-                disabled={!book.available && book.copies === 0}
+                disabled={!book.available}
               >
-                {book.available ? (
-                  <>
-                    <BookOpen size={12} />
-                    <span className="text-xs">Borrow</span>
-                  </>
-                ) : (
-                  <>
-                    <RotateCcw size={12} />
-                    <span className="text-xs">Return</span>
-                  </>
-                )}
+                <BookOpen size={12} />
+                <span className="text-xs">Borrow</span>
               </Button>
             </div>
           </div>
 
-          {/* Mobile - Second row - Borrow/Return button */}
+          {/* Mobile - Second row - Borrow button */}
           <Button
             variant="outline"
             size="sm"
             className={`w-full h-7 px-3 py-1 text-xs flex items-center justify-center gap-1 md:hidden ${
               book.available
                 ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
-                : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
+                : "bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
             }`}
-            disabled={!book.available && book.copies === 0}
+            disabled={!book.available}
           >
-            {book.available ? (
-              <>
-                <BookOpen size={12} />
-                <span>Borrow</span>
-              </>
-            ) : (
-              <>
-                <RotateCcw size={12} />
-                <span>Return</span>
-              </>
-            )}
+            <BookOpen size={12} />
+            <span>Borrow</span>
           </Button>
         </div>
       </div>

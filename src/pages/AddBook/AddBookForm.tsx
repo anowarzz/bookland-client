@@ -45,7 +45,7 @@ const AddBookForm = () => {
       const res = await addBook(bookData).unwrap();
 
       console.log("Book added successfully:", res);
-      toast("Book has been added successfully", {
+      toast.success("Book has been added successfully", {
         description: `${res.data.title} has been added to your library`,
         action: {
           label: "Hide",
@@ -54,7 +54,13 @@ const AddBookForm = () => {
       });
       form.reset();
     } catch (error) {
-      console.error("Error adding book:", error);
+      toast.error("Failed to add book", {
+        description: "Please try again later.",
+        action: {
+          label: "Hide",
+          onClick: () => console.log("Error While Adding Book", error),
+        },
+      });
     }
   };
 

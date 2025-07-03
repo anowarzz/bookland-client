@@ -1,4 +1,5 @@
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
+import EditBookModal from "@/components/EditBookModal";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -21,6 +22,7 @@ interface BookTableProps {
 const BookTable = ({ books }: BookTableProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
+  const [editDialogBook, setEditDialogBook] = useState<string | null>(null);
 
   const handleDeleteBook = async (bookId: string) => {
     try {
@@ -87,13 +89,22 @@ const BookTable = ({ books }: BookTableProps) => {
 
                     {/* Edit and Delete Icons */}
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-7 w-7 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
-                      >
-                        <Edit size={12} />
-                      </Button>
+                      <EditBookModal
+                        book={book}
+                        isOpen={editDialogBook === book._id}
+                        onOpenChange={(open) =>
+                          setEditDialogBook(open ? (book._id as string) : null)
+                        }
+                        trigger={
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 w-7 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
+                          >
+                            <Edit size={12} />
+                          </Button>
+                        }
+                      />
 
                       <DeleteConfirmationModal
                         trigger={
@@ -190,13 +201,22 @@ const BookTable = ({ books }: BookTableProps) => {
                 </TableCell>
                 <TableCell className="py-4">
                   <div className="flex gap-2 lg:gap-3">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-6 px-3 cursor-pointer bg-gray-900 hover:text-gray-200  text-white hover:bg-gray-800 border border-gray-700"
-                    >
-                      Edit
-                    </Button>
+                    <EditBookModal
+                      book={book}
+                      isOpen={editDialogBook === book._id}
+                      onOpenChange={(open) =>
+                        setEditDialogBook(open ? (book._id as string) : null)
+                      }
+                      trigger={
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-6 px-3 cursor-pointer bg-gray-900 hover:text-gray-200  text-white hover:bg-gray-800 border border-gray-700"
+                        >
+                          Edit
+                        </Button>
+                      }
+                    />
                     <Button
                       size="sm"
                       variant="default"
