@@ -35,6 +35,9 @@ const AllBooks = () => {
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">All Books</h1>
         <p className="text-gray-600">Browse our complete collection of books</p>
+        <p className="text-sm text-gray-500 mt-2">
+          Total Books: {books.length}
+        </p>
       </div>
 
       {books.length === 0 ? (

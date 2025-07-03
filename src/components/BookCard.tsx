@@ -23,7 +23,12 @@ const BookCard = ({ book }: BookProps) => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+    <div className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow min-h-[320px] md:min-h-[360px] flex flex-col">
+      {/* Image placeholder area - book cover shape */}
+      <div className="mb-3 h-40 md:h-48 bg-gray-100 rounded-md flex items-center justify-center">
+        <BookOpen className="h-8 w-8 text-gray-400" />
+      </div>
+
       {/* Title and Availability */}
       <div className="mb-3">
         <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
@@ -41,23 +46,14 @@ const BookCard = ({ book }: BookProps) => {
       </div>
 
       {/* Book Details */}
-      <div className="space-y-1 mb-3 text-xs md:text-sm">
+      <div className="space-y-1 mb-3 text-xs md:text-sm flex-grow">
         <p className="text-gray-600 truncate">
           <span className="font-medium">Author:</span> {book.author}
-        </p>
-        <p className="text-gray-600 truncate">
-          <span className="font-medium">Genre:</span> {book.genre}
-        </p>
-        <p className="text-gray-600 truncate md:hidden">
-          <span className="font-medium">ISBN:</span> {book.isbn}
-        </p>
-        <p className="text-gray-600 md:hidden">
-          <span className="font-medium">Copies:</span> {book.copies}
         </p>
       </div>
 
       {/* Action Buttons */}
-      <div className="pt-3 border-t border-gray-100">
+      <div className="pt-3 border-t border-gray-100 mt-auto">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-2">
           {/* Mobile Layout - First row */}
           <div className="flex items-center justify-between md:contents">
@@ -70,7 +66,7 @@ const BookCard = ({ book }: BookProps) => {
             </Button>
 
             {/* Edit and Delete Icons - Mobile */}
-            <div className="flex gap-2 md:hidden">
+            <div className="flex gap-3 md:hidden">
               <Button
                 variant="outline"
                 size="sm"

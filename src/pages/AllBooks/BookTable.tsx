@@ -38,15 +38,20 @@ const BookTable = ({ books }: BookTableProps) => {
     <div className="container mx-auto px-2 py-4 max-w-full">
       {/* Mobile Card Layout */}
       <div className="block md:hidden">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {books.map((book) => (
             <div
               key={book._id}
-              className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow"
+              className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow min-h-[320px] flex flex-col"
             >
+              {/* Image placeholder area - book cover shape */}
+              <div className="mb-3 h-40 bg-gray-100 rounded-md flex items-center justify-center">
+                <BookOpen className="h-8 w-8 text-gray-400" />
+              </div>
+
               {/* Title and Availability */}
               <div className="mb-3">
-                <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
                   {book.title}
                 </h3>
                 <span
@@ -61,30 +66,21 @@ const BookTable = ({ books }: BookTableProps) => {
               </div>
 
               {/* Book Details */}
-              <div className="space-y-1 mb-3 text-sm">
+              <div className="space-y-1 mb-3 text-xs flex-grow">
                 <p className="text-gray-600 truncate">
                   <span className="font-medium">Author:</span> {book.author}
-                </p>
-                <p className="text-gray-600 truncate">
-                  <span className="font-medium">Genre:</span> {book.genre}
-                </p>
-                <p className="text-gray-600 truncate">
-                  <span className="font-medium">ISBN:</span> {book.isbn}
-                </p>
-                <p className="text-gray-600">
-                  <span className="font-medium">Copies:</span> {book.copies}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 border-t border-gray-100">
+              <div className="pt-3 border-t border-gray-100 mt-auto">
                 <div className="flex flex-col gap-2">
                   {/* First row - Details and Icons */}
                   <div className="flex items-center justify-between">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-sm px-3 py-1 h-7 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
+                      className="text-xs px-3 py-1 h-7 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
                     >
                       Details
                     </Button>
@@ -158,6 +154,7 @@ const BookTable = ({ books }: BookTableProps) => {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Cover</TableHead>
               <TableHead>Title</TableHead>
               <TableHead>Author</TableHead>
               <TableHead>Genre</TableHead>
@@ -170,7 +167,12 @@ const BookTable = ({ books }: BookTableProps) => {
           <TableBody>
             {books.map((book) => (
               <TableRow key={book._id} className="border-b border-gray-100">
-                <TableCell className="py-4">{book.title}</TableCell>
+                <TableCell className="py-4">
+                  <div className="w-12 h-16 bg-gray-100 rounded-md flex items-center justify-center">
+                    <BookOpen className="h-4 w-4 text-gray-400" />
+                  </div>
+                </TableCell>
+                <TableCell className="py-4 font-medium">{book.title}</TableCell>
                 <TableCell className="py-4">{book.author}</TableCell>
                 <TableCell className="py-4">{book.genre}</TableCell>
                 <TableCell className="py-4">{book.isbn}</TableCell>
