@@ -1,12 +1,9 @@
-import {
-  useGetAllBooksQuery,
-} from "../../redux/api/Book/bookAPI";
+import { useGetAllBooksQuery } from "../../redux/api/Book/bookAPI";
 import BookTable from "./BookTable";
 
 const AllBooks = () => {
   const { data, error, isLoading } = useGetAllBooksQuery(undefined);
   const books = data?.data || data || [];
-
 
   if (isLoading) {
     return (

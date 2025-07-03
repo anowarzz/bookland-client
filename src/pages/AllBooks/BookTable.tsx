@@ -19,8 +19,7 @@ interface BookTableProps {
 }
 
 const BookTable = ({ books }: BookTableProps) => {
-  const [deleteBook, { isLoading: deleteLoading }] =
-    useDeleteBookMutation();
+  const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
 
   const handleDeleteBook = async (bookId: string) => {
@@ -118,7 +117,7 @@ const BookTable = ({ books }: BookTableProps) => {
                         }
                         onConfirm={() => handleDeleteBook(book._id as string)}
                         title="Book"
-                        description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
+                        description={`Are you sure you want to delete "${book.title}"?`}
                         isLoading={deleteLoading}
                       />
                     </div>

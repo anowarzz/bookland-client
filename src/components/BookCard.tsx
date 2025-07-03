@@ -7,8 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const BookCard = ({ book }: BookProps) => {
-  const [deleteBook, { isLoading: deleteLoading }] =
-    useDeleteBookMutation();
+  const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const handleDeleteBook = async (bookId: string) => {
@@ -94,7 +93,7 @@ const BookCard = ({ book }: BookProps) => {
                 onOpenChange={setIsDeleteDialogOpen}
                 onConfirm={() => handleDeleteBook(book._id as string)}
                 title="Book"
-                description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
+                description={`Are you sure you want to delete "${book.title}"?`}
                 isLoading={deleteLoading}
               />
             </div>
