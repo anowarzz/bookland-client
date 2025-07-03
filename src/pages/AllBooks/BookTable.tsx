@@ -7,13 +7,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { IBook } from "@/types";
+import { toast } from "sonner";
 
 interface BookTableProps {
   books: IBook[];
 }
 
 const BookTable = ({ books }: BookTableProps) => {
+
+
+  const [deleteBook, { isError: deleteError, isLoading: deleteLoading }] =
+    useDeleteBookMutation();
+
+  console.log("Response:", { data, error, isLoading });
+
+  const handleDeleteBook = async (bookId: string) => {
+    try {
+      await deleteBook(bookId).unwrap();
+      console.log("Book deleted successfully");
+      toast.success("Book deleted successfully");
+    } catch (err) {
+      console.error("Failed to delete book:", err);
+      toast.error("Failed to delete book");
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       {/* Mobile Card Layout */}

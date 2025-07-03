@@ -40,7 +40,6 @@ import {
 const EditBookModal = () => {
   const form = useForm();
 
-  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);

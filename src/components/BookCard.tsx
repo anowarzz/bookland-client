@@ -1,8 +1,24 @@
 import { Button } from "@/components/ui/button";
+import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { BookProps } from "@/types";
-import { BookOpen, Edit, RotateCcw, Trash2 } from "lucide-react";
+import { BookOpen, Edit, Loader2, RotateCcw, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 const BookCard = ({ book }: BookProps) => {
+  const [deleteBook, { isError: deleteError, isLoading: deleteLoading }] =
+    useDeleteBookMutation();
+
+  const handleDeleteBook = async (bookId: string) => {
+    try {
+      await deleteBook(bookId).unwrap();
+      console.log("Book deleted successfully");
+      toast.success("Book deleted successfully");
+    } catch (err) {
+      console.error("Failed to delete book:", err);
+      toast.error("Failed to delete book");
+    }
+  };
+
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-3">
@@ -47,11 +63,17 @@ const BookCard = ({ book }: BookProps) => {
               <Edit size={14} />
             </Button>
             <Button
+              onClick={() => handleDeleteBook(book._id as string)}
+              disabled={deleteLoading}
               variant="outline"
               size="sm"
-              className="h-8 w-8 p-0 bg-red-50 text-red-700 hover:bg-red-100 border-red-200"
+              className="h-8 w-8 p-0 bg-red-50 text-red-700 hover:bg-red-100 border-red-200 disabled:opacity-50"
             >
-              <Trash2 size={14} />
+              {deleteLoading ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Trash2 size={14} />
+              )}
             </Button>
             <Button
               variant="outline"

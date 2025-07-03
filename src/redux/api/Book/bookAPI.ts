@@ -5,9 +5,11 @@ export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://bookland-server.vercel.app/api",
   }),
+  tagTypes: ["Book"],
   endpoints: (builder) => ({
     getAllBooks: builder.query({
       query: () => "/books?limit=20&sort=-createdAt",
+      providesTags: ["Book"],
     }),
 
     addBook: builder.mutation({
@@ -16,8 +18,20 @@ export const bookApi = createApi({
         method: "POST",
         body: bookData,
       }),
+      invalidatesTags: ["Book"],
+    }),
+    deleteBook: builder.mutation({
+      query: (bookId) => ({
+        url: `/books/${bookId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Book"],
     }),
   }),
 });
 
-export const { useGetAllBooksQuery, useAddBookMutation } = bookApi;
+export const {
+  useGetAllBooksQuery,
+  useAddBookMutation,
+  useDeleteBookMutation,
+} = bookApi;

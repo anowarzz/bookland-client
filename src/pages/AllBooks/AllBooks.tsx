@@ -1,11 +1,14 @@
-import { useGetAllBooksQuery } from "../../redux/api/Book/bookAPI";
+import { toast } from "sonner";
+import {
+  useDeleteBookMutation,
+  useGetAllBooksQuery,
+} from "../../redux/api/Book/bookAPI";
 import BookTable from "./BookTable";
 
 const AllBooks = () => {
   const { data, error, isLoading } = useGetAllBooksQuery(undefined);
   const books = data?.data || data || [];
 
-  console.log("Response:", { data, error, isLoading });
 
   if (isLoading) {
     return (
