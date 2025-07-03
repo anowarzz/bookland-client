@@ -85,23 +85,15 @@ const EditBookModal = ({
       });
     } finally {
       onOpenChange(false);
-      form.reset();
     }
   };
 
   const handleCancel = () => {
-    form.reset();
     onOpenChange(false);
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={(open) => {
-        if (!open) form.reset();
-        onOpenChange(open);
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className="w-[95vw] max-w-[600px] max-h-[90vh] overflow-y-auto p-4 sm:p-6">
         <DialogHeader className="pb-4">
@@ -111,7 +103,7 @@ const EditBookModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <Form {...form}>
+        <Form {...form} key={`${book._id}-${isOpen}`}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 sm:space-y-6"

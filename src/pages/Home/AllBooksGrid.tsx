@@ -23,8 +23,9 @@ const AllBooksGrid = () => {
         <div className="bg-red-50 border border-red-200 rounded-md p-4">
           <h3 className="text-red-800 font-medium">Error Loading Books</h3>
           <p className="text-red-600 mt-1">
-            {error && "data" in error
-              ? `${error.status}: ${JSON.stringify(error.data)}`
+            {error && "data" in error && error.data
+              ? ((error.data as { message?: string })?.message ||
+                "Failed to fetch books. Please try again later.")
               : "Failed to fetch books. Please try again later."}
           </p>
         </div>
