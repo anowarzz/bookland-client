@@ -1,3 +1,4 @@
+import BorrowModal from "@/components/BorrowModal";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import EditBookModal from "@/components/EditBookModal";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ const BookCard = ({ book }: BookProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isBorrowDialogOpen, setIsBorrowDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleDeleteBook = async (bookId: string) => {
@@ -141,10 +143,41 @@ const BookCard = ({ book }: BookProps) => {
                 isLoading={deleteLoading}
               />
 
+              <BorrowModal
+                isOpen={isBorrowDialogOpen}
+                onOpenChange={setIsBorrowDialogOpen}
+                bookTitle={book.title}
+                maxCopies={book.copies}
+                trigger={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={`h-8 px-2 flex items-center gap-1 ${
+                      book.available
+                        ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
+                        : "bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
+                    }`}
+                    disabled={!book.available}
+                  >
+                    <BookOpen size={12} />
+                    <span className="text-xs">Borrow</span>
+                  </Button>
+                }
+              />
+            </div>
+          </div>
+
+          {/* Mobile - Second row - Borrow button */}
+          <BorrowModal
+            isOpen={isBorrowDialogOpen}
+            onOpenChange={setIsBorrowDialogOpen}
+            bookTitle={book.title}
+            maxCopies={book.copies}
+            trigger={
               <Button
                 variant="outline"
                 size="sm"
-                className={`h-8 px-2 flex items-center gap-1 ${
+                className={`w-full h-7 px-3 py-1 text-xs flex items-center justify-center gap-1 md:hidden ${
                   book.available
                     ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
                     : "bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
@@ -152,25 +185,10 @@ const BookCard = ({ book }: BookProps) => {
                 disabled={!book.available}
               >
                 <BookOpen size={12} />
-                <span className="text-xs">Borrow</span>
+                <span>Borrow</span>
               </Button>
-            </div>
-          </div>
-
-          {/* Mobile - Second row - Borrow button */}
-          <Button
-            variant="outline"
-            size="sm"
-            className={`w-full h-7 px-3 py-1 text-xs flex items-center justify-center gap-1 md:hidden ${
-              book.available
-                ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
-                : "bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
-            }`}
-            disabled={!book.available}
-          >
-            <BookOpen size={12} />
-            <span>Borrow</span>
-          </Button>
+            }
+          />
         </div>
       </div>
     </div>

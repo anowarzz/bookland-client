@@ -1,3 +1,4 @@
+import BorrowModal from "@/components/BorrowModal";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import EditBookModal from "@/components/EditBookModal";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ const BookTable = ({ books }: BookTableProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
   const [editDialogBook, setEditDialogBook] = useState<string | null>(null);
+  const [borrowDialogBook, setBorrowDialogBook] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleDeleteBook = async (bookId: string) => {
@@ -134,21 +136,29 @@ const BookTable = ({ books }: BookTableProps) => {
                   </div>
 
                   {/* Second row - Borrow/Return button */}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`w-full h-7 px-3 py-1 text-sm flex items-center justify-center gap-1 ${
-                      book.available
-                        ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
-                        : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
-                    }`}
-                    disabled={!book.available}
-                  >
-                    <>
-                      <BookOpen size={12} />
-                      <span>Borrow</span>
-                    </>
-                  </Button>
+                  <BorrowModal
+                    isOpen={borrowDialogBook === book._id}
+                    onOpenChange={(open) =>
+                      setBorrowDialogBook(open ? (book._id as string) : null)
+                    }
+                    bookTitle={book.title}
+                    maxCopies={book.copies}
+                    trigger={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={`w-full h-7 px-3 py-1 text-sm flex items-center justify-center gap-1 ${
+                          book.available
+                            ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
+                            : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
+                        }`}
+                        disabled={!book.available}
+                      >
+                        <BookOpen size={12} />
+                        <span>Borrow</span>
+                      </Button>
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -221,18 +231,28 @@ const BookTable = ({ books }: BookTableProps) => {
                         </Button>
                       }
                     />
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className={`h-6 px-3 ${
-                        book.available
-                          ? "bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 cursor-pointer"
-                          : "bg-gray-50 text-gray-500 border border-gray-200 cursor-not-allowed"
-                      }`}
-                      disabled={!book.available}
-                    >
-                      Borrow
-                    </Button>
+                    <BorrowModal
+                      isOpen={borrowDialogBook === book._id}
+                      onOpenChange={(open) =>
+                        setBorrowDialogBook(open ? (book._id as string) : null)
+                      }
+                      bookTitle={book.title}
+                      maxCopies={book.copies}
+                      trigger={
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className={`h-6 px-3 ${
+                            book.available
+                              ? "bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 cursor-pointer"
+                              : "bg-gray-50 text-gray-500 border border-gray-200 cursor-not-allowed"
+                          }`}
+                          disabled={!book.available}
+                        >
+                          Borrow
+                        </Button>
+                      }
+                    />
                     <DeleteConfirmationModal
                       trigger={
                         <Button

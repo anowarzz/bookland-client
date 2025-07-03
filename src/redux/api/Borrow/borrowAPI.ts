@@ -7,7 +7,8 @@ export const bookApi = createApi({
   }),
   endpoints: (builder) => ({
     getAllBooks: builder.query({
-      query: () => "/borrow",
+      query: ({bookId}) => `/borrow/${bookId}`,
+
     }),
   }),
 });

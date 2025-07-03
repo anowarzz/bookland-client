@@ -1,3 +1,4 @@
+import BorrowModal from "@/components/BorrowModal";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import EditBookModal from "@/components/EditBookModal";
 import { Button } from "@/components/ui/button";
@@ -29,13 +30,9 @@ const BookDetails = () => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
 
   const book = response?.data || response;
-
-
-  const handleBorrowBook = () => {
-    console.log("Borrow book:", book._id);
-  };
 
   const handleDeleteBook = async () => {
     try {
@@ -61,7 +58,6 @@ const BookDetails = () => {
       });
     }
   };
-
 
   if (isLoading) {
     return (
@@ -100,8 +96,6 @@ const BookDetails = () => {
       </div>
     );
   }
-
- 
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -251,14 +245,21 @@ const BookDetails = () => {
             {/* Action Buttons */}
             <div className="flex flex-col gap-3">
               {/* Primary Action - Borrow Book */}
-              <Button
-                onClick={handleBorrowBook}
-                disabled={!book.available || book.copies === 0}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-base font-medium"
-              >
-                <BookOpen className="h-5 w-5 mr-2" />
-                {book.available ? "Borrow Book" : "Not Available"}
-              </Button>
+              <BorrowModal
+                isOpen={isBorrowModalOpen}
+                onOpenChange={setIsBorrowModalOpen}
+                bookTitle={book.title}
+                maxCopies={book.copies}
+                trigger={
+                  <Button
+                    disabled={!book.available || book.copies === 0}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-base font-medium"
+                  >
+                    <BookOpen className="h-5 w-5 mr-2" />
+                    {book.available ? "Borrow Book" : "Not Available"}
+                  </Button>
+                }
+              />
 
               {/* Secondary Actions */}
               <div className="flex flex-col sm:flex-row gap-3">
