@@ -1,20 +1,6 @@
-// Define the book type
-interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  genre: string;
-  isbn: string;
-  description: string;
-  copies: number;
-  available: boolean;
-}
+import type { BookProps } from "@/types";
 
-interface BookCardProps {
-  book: Book;
-}
-
-const BookCard = ({ book }: BookCardProps) => {
+const BookCard = ({ book }: BookProps) => {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-3">

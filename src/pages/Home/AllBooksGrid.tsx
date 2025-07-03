@@ -1,10 +1,9 @@
 import type { IBook } from "@/types";
+import BookCard from "../../components/BookCard";
 import { useGetAllBooksQuery } from "../../redux/api/Book/bookAPI";
-import BookTable from "./BookTable";
 
-const AllBooks = () => {
+const AllBooksGrid = () => {
   const { data, error, isLoading } = useGetAllBooksQuery(undefined);
-  const books = data?.data || data || [];
 
   console.log("Response:", { data, error, isLoading });
 
@@ -33,10 +32,11 @@ const AllBooks = () => {
     );
   }
 
+  const books = data?.data || data || [];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">All Books</h1>
         <p className="text-gray-600">Browse our complete collection of books</p>
       </div>
 
@@ -47,9 +47,9 @@ const AllBooks = () => {
           </p>
         </div>
       ) : (
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {books.map((book: IBook) => (
-            <BookTable key={book._id} book={book} />
+            <BookCard key={book._id} book={book} />
           ))}
         </div>
       )}
@@ -57,4 +57,4 @@ const AllBooks = () => {
   );
 };
 
-export default AllBooks;
+export default AllBooksGrid;
