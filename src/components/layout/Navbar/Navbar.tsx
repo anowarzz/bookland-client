@@ -19,29 +19,35 @@ const Navbar = () => {
                 <BookOpenText size={20} className="text-white" />
               </div>
               <span className="text-2xl font-bold text-slate-800">
-                BookLand
+                Book<span className="text-emerald-600">Land</span>
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex flex-1 justify-center">
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-4 lg:space-x-6">
+              <Link
+                to="/"
+                className="text-gray-600 hover:text-gray-900 px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                Home
+              </Link>
               <Link
                 to="/all-books"
-                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-600 hover:text-gray-900 px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 All Books
               </Link>
               <Link
                 to="/add-book"
-                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-600 hover:text-gray-900 px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 Add Book
               </Link>
               <Link
                 to="/borrow-summary"
-                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-600 hover:text-gray-900 px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 Borrow Summary
               </Link>
@@ -49,7 +55,7 @@ const Navbar = () => {
           </div>
 
           {/* Spacer for balanced layout */}
-          <div className="hidden md:block w-32"></div>
+          <div className="hidden md:block w-16 lg:w-32"></div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -66,6 +72,13 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden border-t border-gray-100">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50">
+              <Link
+                to="/"
+                className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium hover:bg-white transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
               <Link
                 to="/all-books"
                 className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium hover:bg-white transition-colors"
