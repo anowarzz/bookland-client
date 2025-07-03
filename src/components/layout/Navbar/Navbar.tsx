@@ -1,4 +1,5 @@
-import { Menu, X } from "lucide-react";
+import BookCard from "@/pages/AllBooks/BookCard";
+import { Book, BookAIcon, BookImage, BookOpenText, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -10,21 +11,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-100">
+    <nav className="bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-         
-          <div className="flex-shrink-0">
-            <Link
-              to="/"
-              className="text-2xl font-semibold text-gray-900 hover:text-gray-700 transition-colors"
-            >
-              BookLand
+          <div className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-2 group">
+              <div className="p-2 bg-slate-700 rounded-lg">
+                <BookOpenText size={20} className="text-white" />
+              </div>
+              <span className="text-2xl font-bold text-slate-800">
+                BookLand
+              </span>
             </Link>
           </div>
 
+          {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex flex-1 justify-center">
-            <div className="flex items-baseline space-x-8">
+            <div className="flex items-center space-x-8">
               <Link
                 to="/all-books"
                 className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
@@ -46,8 +49,8 @@ const Navbar = () => {
             </div>
           </div>
 
-       
-          <div className="flex-shrink-0 w-24 hidden md:block"></div>
+          {/* Spacer for balanced layout */}
+          <div className="hidden md:block w-32"></div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
