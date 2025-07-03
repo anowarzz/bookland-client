@@ -7,12 +7,12 @@ export const bookApi = createApi({
   }),
   endpoints: (builder) => ({
     getAllBooks: builder.query({
-      query: () => "/books",
+      query: () => "/books?limit=20&sort=-createdAt",
     }),
 
     addBook: builder.mutation({
       query: (bookData) => ({
-        url: "/create-book",
+        url: "/books",
         method: "POST",
         body: bookData,
       }),
@@ -20,4 +20,4 @@ export const bookApi = createApi({
   }),
 });
 
-export const { useGetAllBooksQuery, useEditBookMutation } = bookApi;
+export const { useGetAllBooksQuery, useAddBookMutation } = bookApi;

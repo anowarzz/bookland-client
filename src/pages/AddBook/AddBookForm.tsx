@@ -16,14 +16,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useAppDispatch } from "@/redux/hook";
+import { useAddBookMutation } from "@/redux/api/Book/bookAPI";
 import type { IBook } from "@/types";
 import { BookOpen, Plus } from "lucide-react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 type BookFormData = IBook;
 
-const AddBookModal = () => {
+const AddBookForm = () => {
   const form = useForm<BookFormData>({
     defaultValues: {
       title: "",
@@ -36,11 +37,25 @@ const AddBookModal = () => {
     },
   });
 
-  const dispatch = useAppDispatch();
+  const [addBook, { data, isLoading, error, isError }] = useAddBookMutation();
 
-  const onSubmit: SubmitHandler<BookFormData> = (data) => {
-    console.log("Adding book:", data);
-    // TODO: Implement API call to add book using dispatch
+  const onSubmit: SubmitHandler<BookFormData> = async (data) => {
+    try {
+      const bookData: IBook = { ...data };
+      const res = await addBook(bookData).unwrap();
+
+      console.log("Book added successfully:", res);
+      toast("Book has been added successfully", {
+        description: `${res.data.title} has been added to your library`,
+        action: {
+          label: "Hide",
+          onClick: () => console.log("Hide"),
+        },
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Error adding book:", error);
+    }
   };
 
   return (
@@ -53,6 +68,14 @@ const AddBookModal = () => {
         <p className="text-gray-600">
           Add a new book to your library collection
         </p>
+        {isError && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
+            <p className="text-red-600 text-sm">
+              {error?.data?.error?.message ||
+                "Failed to add book. Please try again."}
+            </p>
+          </div>
+        )}
       </div>
 
       <Form {...form}>
@@ -62,6 +85,13 @@ const AddBookModal = () => {
             <FormField
               control={form.control}
               name="title"
+              rules={{
+                required: "Title is required",
+                minLength: {
+                  value: 3,
+                  message: "Title must be at least 3 characters",
+                },
+              }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700">
@@ -83,6 +113,7 @@ const AddBookModal = () => {
             <FormField
               control={form.control}
               name="author"
+              rules={{ required: "Author is required" }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700">
@@ -104,6 +135,7 @@ const AddBookModal = () => {
             <FormField
               control={form.control}
               name="isbn"
+              rules={{ required: "ISBN is required" }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700">
@@ -125,6 +157,10 @@ const AddBookModal = () => {
             <FormField
               control={form.control}
               name="copies"
+              rules={{
+                required: "Number of copies is required",
+                min: { value: 1, message: "At least 1 copy is required" },
+              }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700">
@@ -151,6 +187,7 @@ const AddBookModal = () => {
             <FormField
               control={form.control}
               name="genre"
+              rules={{ required: "Genre is required" }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-gray-700">
@@ -231,13 +268,14 @@ const AddBookModal = () => {
           />
 
           {/* Submit Button */}
-          <div className="flex justify-center pt-6">
+          <div className="flex justify-center ">
             <Button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 h-12 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
+              disabled={isLoading}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-3 h-12 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
             >
               <Plus className="h-5 w-5" />
-              Add Book to Library
+              {isLoading ? "Adding Book..." : "Add Book to Library"}
             </Button>
           </div>
         </form>
@@ -246,4 +284,4 @@ const AddBookModal = () => {
   );
 };
 
-export default AddBookModal;
+export default AddBookForm;
