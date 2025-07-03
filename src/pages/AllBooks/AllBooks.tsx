@@ -1,4 +1,3 @@
-import type { IBook } from "@/types";
 import { useGetAllBooksQuery } from "../../redux/api/Book/bookAPI";
 import BookTable from "./BookTable";
 
@@ -47,11 +46,7 @@ const AllBooks = () => {
           </p>
         </div>
       ) : (
-        <div>
-          {books.map((book: IBook) => (
-            <BookTable key={book._id} book={book} />
-          ))}
-        </div>
+        <BookTable books={books} />
       )}
     </div>
   );
