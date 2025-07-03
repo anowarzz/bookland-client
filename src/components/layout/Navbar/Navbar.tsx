@@ -1,5 +1,4 @@
-import BookCard from "@/pages/AllBooks/BookCard";
-import { Book, BookAIcon, BookImage, BookOpenText, Menu, X } from "lucide-react";
+import { BookOpenText, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -13,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 md:h-18">
           <div className="flex items-center space-x-3">
             <Link to="/" className="flex items-center space-x-2 group">
               <div className="p-2 bg-slate-700 rounded-lg">
