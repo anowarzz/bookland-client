@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/table";
 import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { IBook } from "@/types";
-import { BookOpen, Edit, RotateCcw, Trash2 } from "lucide-react";
+import { BookOpen, Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 interface BookTableProps {
@@ -23,6 +24,7 @@ const BookTable = ({ books }: BookTableProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
   const [editDialogBook, setEditDialogBook] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleDeleteBook = async (bookId: string) => {
     try {
@@ -83,6 +85,7 @@ const BookTable = ({ books }: BookTableProps) => {
                       variant="outline"
                       size="sm"
                       className="text-xs px-3 py-1 h-7 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
+                      onClick={() => navigate(`/books/${book._id}`)}
                     >
                       Details
                     </Button>
@@ -139,19 +142,12 @@ const BookTable = ({ books }: BookTableProps) => {
                         ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
                         : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
                     }`}
-                    disabled={!book.available && book.copies === 0}
+                    disabled={!book.available}
                   >
-                    {book.available ? (
-                      <>
-                        <BookOpen size={12} />
-                        <span>Borrow</span>
-                      </>
-                    ) : (
-                      <>
-                        <RotateCcw size={12} />
-                        <span>Return</span>
-                      </>
-                    )}
+                    <>
+                      <BookOpen size={12} />
+                      <span>Borrow</span>
+                    </>
                   </Button>
                 </div>
               </div>
@@ -201,6 +197,14 @@ const BookTable = ({ books }: BookTableProps) => {
                 </TableCell>
                 <TableCell className="py-4">
                   <div className="flex gap-2 lg:gap-3">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 px-3 cursor-pointer bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
+                      onClick={() => navigate(`/books/${book._id}`)}
+                    >
+                      Details
+                    </Button>
                     <EditBookModal
                       book={book}
                       isOpen={editDialogBook === book._id}
@@ -219,8 +223,13 @@ const BookTable = ({ books }: BookTableProps) => {
                     />
                     <Button
                       size="sm"
-                      variant="default"
-                      className="h-6 px-3 cursor-pointer bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
+                      variant="outline"
+                      className={`h-6 px-3 ${
+                        book.available
+                          ? "bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 cursor-pointer"
+                          : "bg-gray-50 text-gray-500 border border-gray-200 cursor-not-allowed"
+                      }`}
+                      disabled={!book.available}
                     >
                       Borrow
                     </Button>

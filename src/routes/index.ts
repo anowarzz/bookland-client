@@ -1,3 +1,4 @@
+import BookDetails from "@/components/BookDetails";
 import Main from "@/components/layout/Main/Main";
 import AddBook from "@/pages/AddBook/AddBook";
 import AllBooks from "@/pages/AllBooks/AllBooks";
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "all-books",
         Component: AllBooks,
+      },
+      {
+        path: "books/:bookId",
+        Component: BookDetails,
       },
       {
         path: "add-book",

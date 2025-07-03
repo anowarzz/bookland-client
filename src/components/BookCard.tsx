@@ -5,12 +5,14 @@ import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { BookProps } from "@/types";
 import { BookOpen, Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const BookCard = ({ book }: BookProps) => {
   const [deleteBook, { isLoading: deleteLoading }] = useDeleteBookMutation();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDeleteBook = async (bookId: string) => {
     try {
@@ -63,6 +65,7 @@ const BookCard = ({ book }: BookProps) => {
               variant="outline"
               size="sm"
               className="text-xs px-3 py-1 h-7 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300 md:flex-none md:w-20"
+              onClick={() => navigate(`/books/${book._id}`)}
             >
               Details
             </Button>
