@@ -1,3 +1,4 @@
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,6 +10,8 @@ import {
 } from "@/components/ui/table";
 import { useDeleteBookMutation } from "@/redux/api/Book/bookAPI";
 import type { IBook } from "@/types";
+import { BookOpen, Edit, RotateCcw, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface BookTableProps {
@@ -16,18 +19,16 @@ interface BookTableProps {
 }
 
 const BookTable = ({ books }: BookTableProps) => {
-
-
   const [deleteBook, { isError: deleteError, isLoading: deleteLoading }] =
     useDeleteBookMutation();
-
-  console.log("Response:", { data, error, isLoading });
+  const [deleteDialogBook, setDeleteDialogBook] = useState<string | null>(null);
 
   const handleDeleteBook = async (bookId: string) => {
     try {
       await deleteBook(bookId).unwrap();
       console.log("Book deleted successfully");
       toast.success("Book deleted successfully");
+      setDeleteDialogBook(null);
     } catch (err) {
       console.error("Failed to delete book:", err);
       toast.error("Failed to delete book");
@@ -35,78 +36,118 @@ const BookTable = ({ books }: BookTableProps) => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-2 py-4 max-w-full">
       {/* Mobile Card Layout */}
       <div className="block md:hidden">
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-2 gap-3">
           {books.map((book) => (
             <div
               key={book._id}
-              className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm"
+              className="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow"
             >
-              <div className="flex justify-between items-start mb-2 sm:mb-3">
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
-                    {book.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 truncate mt-1">
-                    {book.author}
-                  </p>
-                </div>
+              {/* Title and Availability */}
+              <div className="mb-3">
+                <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                  {book.title}
+                </h3>
                 <span
-                  className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full text-xs font-medium ml-2 sm:ml-3 flex-shrink-0 ${
+                  className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
                     book.available
                       ? "bg-green-100 text-green-800"
                       : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {book.available ? "Available" : "Not Available"}
+                  {book.available ? "Available" : "Unavailable"}
                 </span>
               </div>
-              <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm mb-3 sm:mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 font-medium">Genre:</span>
-                  <span className="text-gray-700 truncate ml-1 sm:ml-2">
-                    {book.genre}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 font-medium">Copies:</span>
-                  <span className="text-gray-700 font-semibold">
-                    {book.copies}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-500 font-medium">ISBN:</span>
-                  <span className="text-gray-700 truncate ml-1 sm:ml-2 text-xs">
-                    {book.isbn}
-                  </span>
-                </div>
+
+              {/* Book Details */}
+              <div className="space-y-1 mb-3 text-sm">
+                <p className="text-gray-600 truncate">
+                  <span className="font-medium">Author:</span> {book.author}
+                </p>
+                <p className="text-gray-600 truncate">
+                  <span className="font-medium">Genre:</span> {book.genre}
+                </p>
+                <p className="text-gray-600 truncate">
+                  <span className="font-medium">ISBN:</span> {book.isbn}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-medium">Copies:</span> {book.copies}
+                </p>
               </div>
-              <div className="flex flex-col gap-1.5 sm:gap-2 pt-2">
-                <div className="flex gap-1.5 sm:gap-2">
+
+              {/* Action Buttons */}
+              <div className="pt-3 border-t border-gray-100">
+                <div className="flex flex-col gap-2">
+                  {/* First row - Details and Icons */}
+                  <div className="flex items-center justify-between">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-sm px-3 py-1 h-7 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
+                    >
+                      Details
+                    </Button>
+
+                    {/* Edit and Delete Icons */}
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 w-7 p-0 bg-gray-800 text-white hover:bg-gray-900 border-gray-800 hover:text-white"
+                      >
+                        <Edit size={12} />
+                      </Button>
+
+                      <DeleteConfirmationModal
+                        trigger={
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 w-7 p-0 bg-red-50 text-red-700 hover:bg-red-100 border-red-200"
+                          >
+                            <Trash2 size={12} />
+                          </Button>
+                        }
+                        isOpen={deleteDialogBook === book._id}
+                        onOpenChange={(open) =>
+                          setDeleteDialogBook(
+                            open ? (book._id as string) : null
+                          )
+                        }
+                        onConfirm={() => handleDeleteBook(book._id as string)}
+                        title="Book"
+                        description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
+                        isLoading={deleteLoading}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Second row - Borrow/Return button */}
                   <Button
-                    size="sm"
                     variant="outline"
-                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-gray-900 text-white hover:bg-gray-800 hover:text-white border border-gray-700"
-                  >
-                    Edit
-                  </Button>
-                  <Button
                     size="sm"
-                    variant="default"
-                    className="flex-1 h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
+                    className={`w-full h-7 px-3 py-1 text-sm flex items-center justify-center gap-1 ${
+                      book.available
+                        ? "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200"
+                        : "bg-gray-50 text-gray-600 hover:bg-gray-100 border-gray-200"
+                    }`}
+                    disabled={!book.available && book.copies === 0}
                   >
-                    Borrow
+                    {book.available ? (
+                      <>
+                        <BookOpen size={12} />
+                        <span>Borrow</span>
+                      </>
+                    ) : (
+                      <>
+                        <RotateCcw size={12} />
+                        <span>Return</span>
+                      </>
+                    )}
                   </Button>
                 </div>
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  className="w-full h-7 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm cursor-pointer bg-red-50 text-red-700 hover:bg-red-100 border border-red-200"
-                >
-                  Delete
-                </Button>
               </div>
             </div>
           ))}
@@ -162,13 +203,25 @@ const BookTable = ({ books }: BookTableProps) => {
                     >
                       Borrow
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      className="h-6 px-3 cursor-pointer bg-red-50 text-red-700 hover:bg-red-100 border border-red-200"
-                    >
-                      Delete
-                    </Button>
+                    <DeleteConfirmationModal
+                      trigger={
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          className="h-6 px-3 cursor-pointer bg-red-50 text-red-700 hover:bg-red-100 border border-red-200"
+                        >
+                          Delete
+                        </Button>
+                      }
+                      isOpen={deleteDialogBook === book._id}
+                      onOpenChange={(open) =>
+                        setDeleteDialogBook(open ? (book._id as string) : null)
+                      }
+                      onConfirm={() => handleDeleteBook(book._id as string)}
+                      title="Book"
+                      description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
+                      isLoading={deleteLoading}
+                    />
                   </div>
                 </TableCell>
               </TableRow>

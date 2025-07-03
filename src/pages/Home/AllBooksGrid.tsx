@@ -9,7 +9,7 @@ const AllBooksGrid = () => {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 py-4 md:px-4 md:py-8 max-w-full">
         <div className="flex justify-center items-center min-h-[200px]">
           <div className="text-lg text-gray-600">Loading books...</div>
         </div>
@@ -19,7 +19,7 @@ const AllBooksGrid = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 py-4 md:px-4 md:py-8 max-w-full">
         <div className="bg-red-50 border border-red-200 rounded-md p-4">
           <h3 className="text-red-800 font-medium">Error Loading Books</h3>
           <p className="text-red-600 mt-1">
@@ -35,8 +35,8 @@ const AllBooksGrid = () => {
   const books = data?.data || data || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 text-center">
+    <div className="container mx-auto px-2 py-4 md:px-4 md:py-8 max-w-full">
+      <div className="mb-6 md:mb-8 text-center">
         <p className="text-gray-600">Browse our complete collection of books</p>
       </div>
 
@@ -47,7 +47,7 @@ const AllBooksGrid = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
           {books.map((book: IBook) => (
             <BookCard key={book._id} book={book} />
           ))}
