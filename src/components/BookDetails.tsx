@@ -24,6 +24,14 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 const BookDetails = () => {
+
+  
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   const { bookId } = useParams<{ bookId: string }>();
   const navigate = useNavigate();
   const { data: response, error, isLoading } = useGetBookByIdQuery(bookId);
@@ -34,10 +42,6 @@ const BookDetails = () => {
 
   const book = response?.data || response;
 
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const handleDeleteBook = async () => {
     try {

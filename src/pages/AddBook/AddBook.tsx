@@ -1,9 +1,16 @@
-import AddBookModal from "./AddBookForm";
+import { useEffect } from "react";
+import AddBookForm from "./AddBookForm";
 
 const AddBook = () => {
+  
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
-      <AddBookModal />
+      <AddBookForm />
     </div>
   );
 };

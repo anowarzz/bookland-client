@@ -9,8 +9,15 @@ import {
 import { useBorrowSummaryQuery } from "@/redux/api/Borrow/borrowAPI";
 import type { IBorrowSummary } from "@/types";
 import { BookOpen } from "lucide-react";
+import { useEffect } from "react";
 
 const BorrowSummary = () => {
+
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data: borrowSummary, isLoading, error } = useBorrowSummaryQuery({});
 
   console.log(borrowSummary);

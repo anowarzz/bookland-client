@@ -1,8 +1,14 @@
 import { BookOpen } from "lucide-react";
+import { useEffect } from "react";
 import { useGetAllBooksQuery } from "../../redux/api/Book/bookAPI";
 import BookTable from "./BookTable";
 
 const AllBooks = () => {
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data, error, isLoading } = useGetAllBooksQuery(undefined);
   const books = data?.data || data || [];
 
