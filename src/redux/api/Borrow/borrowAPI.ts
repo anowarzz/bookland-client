@@ -1,16 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const bookApi = createApi({
-  reducerPath: "bookApi",
+export const borrowApi = createApi({
+  reducerPath: "borrowApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://bookland-server.vercel.app/api",
   }),
+  tagTypes: ["Borrow"],
   endpoints: (builder) => ({
-    getAllBooks: builder.query({
-      query: ({bookId}) => `/borrow/${bookId}`,
+    borrowSummary: builder.query({
+      query: () => "/borrow-summary",
+      providesTags: ["Borrow"],
+    }),
 
+    createBorrow: builder.mutation({
+      query: ({ bookId, copies, dueDate }) => ({
+        url: `/borrow/${bookId}`,
+        method: "POST",
+        body: { copies, dueDate },
+      }),
+      invalidatesTags: ["Borrow"],
     }),
   }),
 });
 
-export const { useGetAllBooksQuery } = bookApi;
+export const { useBorrowSummaryQuery, useCreateBorrowMutation } = borrowApi;

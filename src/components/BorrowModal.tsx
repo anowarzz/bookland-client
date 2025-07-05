@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useCreateBorrowMutation } from "@/redux/api/Borrow/borrowAPI";
 import { format } from "date-fns";
 import { BookOpen, CalendarIcon } from "lucide-react";
 import { type ReactNode } from "react";
@@ -49,6 +50,8 @@ const BorrowModal = ({
   bookTitle,
   maxCopies,
 }: BorrowModalProps) => {
+
+
   const navigate = useNavigate();
   const form = useForm<BorrowFormData>({
     defaultValues: {
@@ -57,9 +60,14 @@ const BorrowModal = ({
     },
   });
 
+  const [createBorrow, {isLoading}] = useCreateBorrowMutation();
+
+
   const onSubmit: SubmitHandler<BorrowFormData> = async (data) => {
     try {
       console.log("Borrow form submitted:", data);
+
+      const res = await createBorrow({ bookId: "someBookId", ...data }).unwrap();
 
       toast.success("Book borrowed successfully", {
         description: `You have borrowed ${data.copies} copy(ies) of "${bookTitle}"`,
