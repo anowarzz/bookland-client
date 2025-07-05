@@ -137,7 +137,7 @@ const BorrowSummary = () => {
 
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-500 font-medium">
-                          Quantity:
+                          Total Borrowed Quantity:
                         </span>
                         <span className="text-sm font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
                           {item.totalQuantity}
@@ -159,7 +159,7 @@ const BorrowSummary = () => {
                 <TableHead className="w-16 sm:w-20">Cover</TableHead>
                 <TableHead className="min-w-32">Book Title</TableHead>
                 <TableHead>ISBN</TableHead>
-                <TableHead className="text-right">Quantity</TableHead>
+                <TableHead className="text-right">Total Borrowed Quantity</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
