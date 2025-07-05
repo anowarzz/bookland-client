@@ -188,7 +188,7 @@ const BorrowModal = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-sm font-medium text-gray-700">
-                      Due Date *
+                      Due Date * (Choose a date)
                     </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>

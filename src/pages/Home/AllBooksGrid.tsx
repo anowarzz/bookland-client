@@ -60,7 +60,10 @@ const AllBooksGrid = () => {
   return (
     <div className="container mx-auto px-4 py-6 md:px-6 md:py-10 max-w-full">
       <div className="mb-8 md:mb-12 text-center">
-        <p className="text-gray-600">Browse our complete collection of books</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+          Featured <span className="text-emerald-600">Books</span>
+        </h2>
+        <p className="text-gray-600">Browse our collection of books</p>
         <p className="text-sm text-gray-500 mt-2">
           Total Books: {books.length}
         </p>

@@ -87,7 +87,7 @@ const Navbar = () => {
                 All Books
               </Link>
               <Link
-                to="/add-book"
+                to="/create-book"
                 className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium hover:bg-white transition-colors"
                 onClick={() => setIsOpen(false)}
               >

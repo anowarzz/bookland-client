@@ -20,7 +20,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/"
+                  to="/all-books"
                   className="text-gray-300 hover:text-white text-sm transition-colors"
                 >
                   All Books
@@ -28,7 +28,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/add-book"
+                  to="/create-book"
                   className="text-gray-300 hover:text-white text-sm transition-colors"
                 >
                   Add Book
@@ -64,13 +64,13 @@ const Footer = () => {
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
-                to="/privacy"
+                to="/"
                 className="text-gray-400 hover:text-white text-sm transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to="/"
                 className="text-gray-400 hover:text-white text-sm transition-colors"
               >
                 Terms of Service
