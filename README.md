@@ -1,69 +1,77 @@
-# React + TypeScript + Vite
+# 📚 BookLand - Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bookland is a library management system built with React, Redux Toolkit, and TypeScript. BookLand makes it easy to manage your book collection, track borrowing activities, and maintain an organized library system.
 
-Currently, two official plugins are available:
+🌐 **Live Demo**: [https://bookland-fawn.vercel.app/](https://bookland-fawn.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+### 📖 Book Management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **View All Books**: Browse through your entire book collection with a clean, responsive grid layout
+- **Book Details**: View comprehensive information about each book including title, author, genre, and availability
+- **Add New Books**: Easily add new books to your library with a user-friendly form
+- **Edit Books**: Update book information whenever needed
+- **Delete Books**: Remove books from the collection with confirmation dialogs
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📅 Borrowing System
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Borrow Books**: Users can borrow available books by selecting quantity and due date
+- **Borrow Summary**: Track all borrowing activities and view a summary of borrowed books
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Frontend**: React 19, TypeScript
+- **State Management**: Redux Toolkit with RTK Query
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn UI
+- **Form Handling**: React Hook Form
+- **Routing**: React Router v7
+- **Build Tool**: Vite
+- **Deployment**: Vercel
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Local Development Setup
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- Node.js (version 18 or higher)
+- pnpm (recommended) or npm
+
+### Installation Steps
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/anowarzz/bookland-client.git
+   cd bookland-client
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   # or if using npm
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   pnpm dev
+   # or if using npm
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application
+
+### Available Scripts
+
+- `pnpm run dev` - Start the development server
+- `pnpm build` - Build the project for production
+
+---
+
+**Happy Reading! 📚✨**
