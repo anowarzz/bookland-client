@@ -20,11 +20,13 @@ import { useAddBookMutation } from "@/redux/api/Book/bookAPI";
 import type { IBook } from "@/types";
 import { BookOpen, Plus } from "lucide-react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 type BookFormData = IBook;
 
 const AddBookForm = () => {
+  const navigate = useNavigate();
   const form = useForm<BookFormData>({
     defaultValues: {
       title: "",
@@ -54,6 +56,8 @@ const AddBookForm = () => {
         },
       });
       form.reset();
+
+      navigate("/all-books");
     } catch (error) {
       toast.error("Failed to add book", {
         description: "Please try again later.",
