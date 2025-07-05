@@ -22,3 +22,22 @@ export interface IBook {
 export interface BookProps {
   book: IBook;
 }
+
+// borrow summary type (aggregated data from API)
+export interface IBorrowSummary {
+  totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
+}
+
+// borrow record type
+export interface IBorrowRecord {
+  _id: string;
+  book: string; // Book reference ID only
+  quantity: number;
+  dueDate: string;
+  createdAt: string;
+  updatedAt: string;
+}

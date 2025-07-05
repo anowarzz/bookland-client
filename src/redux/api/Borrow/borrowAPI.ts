@@ -8,7 +8,7 @@ export const borrowApi = createApi({
   tagTypes: ["Borrow"],
   endpoints: (builder) => ({
     borrowSummary: builder.query({
-      query: () => "/borrow-summary",
+      query: () => "/borrow",
       providesTags: ["Borrow"],
     }),
 
