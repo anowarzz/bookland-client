@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         Component: BookDetails,
       },
       {
-        path: "add-book",
+        path: "create-book",
         Component: AddBook,
       },
       {
