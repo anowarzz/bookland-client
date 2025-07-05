@@ -19,7 +19,7 @@ import {
   User,
   XCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
@@ -33,6 +33,11 @@ const BookDetails = () => {
   const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
 
   const book = response?.data || response;
+
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleDeleteBook = async () => {
     try {
