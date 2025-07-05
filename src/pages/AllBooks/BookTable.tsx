@@ -32,11 +32,15 @@ const BookTable = ({ books }: BookTableProps) => {
     try {
       await deleteBook(bookId).unwrap();
       console.log("Book deleted successfully");
-      toast.success("Book deleted successfully");
+      toast.success("Book deleted successfully", {
+        className: "toast-success",
+      });
       setDeleteDialogBook(null);
     } catch (err) {
       console.error("Failed to delete book:", err);
-      toast.error("Failed to delete book");
+      toast.error("Failed to delete book", {
+        className: "toast-error",
+      });
     }
   };
 
@@ -143,6 +147,7 @@ const BookTable = ({ books }: BookTableProps) => {
                     }
                     bookTitle={book.title}
                     maxCopies={book.copies}
+                    bookId={book._id}
                     trigger={
                       <Button
                         variant="outline"
@@ -238,6 +243,7 @@ const BookTable = ({ books }: BookTableProps) => {
                       }
                       bookTitle={book.title}
                       maxCopies={book.copies}
+                      bookId={book._id}
                       trigger={
                         <Button
                           size="sm"

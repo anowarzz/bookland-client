@@ -47,6 +47,7 @@ const AddBookForm = () => {
       console.log("Book added successfully:", res);
       toast.success("Book has been added successfully", {
         description: `${res.data.title} has been added to your library`,
+        className: "toast-success",
         action: {
           label: "Hide",
           onClick: () => console.log("Hide"),
@@ -56,6 +57,7 @@ const AddBookForm = () => {
     } catch (error) {
       toast.error("Failed to add book", {
         description: "Please try again later.",
+        className: "toast-error",
         action: {
           label: "Hide",
           onClick: () => console.log("Error While Adding Book", error),
@@ -179,7 +181,9 @@ const AddBookForm = () => {
                       placeholder="Enter number of copies"
                       className="h-10 md:h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                       onChange={(e) =>
-                        field.onChange(parseInt(e.target.value) || 1)
+                        field.onChange(
+                          e.target.value === "" ? "" : parseInt(e.target.value)
+                        )
                       }
                     />
                   </FormControl>

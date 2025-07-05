@@ -20,11 +20,15 @@ const BookCard = ({ book }: BookProps) => {
     try {
       await deleteBook(bookId).unwrap();
       console.log("Book deleted successfully");
-      toast.success("Book deleted successfully");
+      toast.success("Book deleted successfully", {
+        className: "toast-success",
+      });
       setIsDeleteDialogOpen(false);
     } catch (err) {
       console.error("Failed to delete book:", err);
-      toast.error("Failed to delete book");
+      toast.error("Failed to delete book", {
+        className: "toast-error",
+      });
     }
   };
 
@@ -148,6 +152,7 @@ const BookCard = ({ book }: BookProps) => {
                 onOpenChange={setIsBorrowDialogOpen}
                 bookTitle={book.title}
                 maxCopies={book.copies}
+                bookId={book._id}
                 trigger={
                   <Button
                     variant="outline"
@@ -173,6 +178,7 @@ const BookCard = ({ book }: BookProps) => {
             onOpenChange={setIsBorrowDialogOpen}
             bookTitle={book.title}
             maxCopies={book.copies}
+            bookId={book._id}
             trigger={
               <Button
                 variant="outline"

@@ -13,10 +13,10 @@ export const borrowApi = createApi({
     }),
 
     createBorrow: builder.mutation({
-      query: ({ bookId, copies, dueDate }) => ({
+      query: ({ bookId, quantity, dueDate }) => ({
         url: `/borrow/${bookId}`,
         method: "POST",
-        body: { copies, dueDate },
+        body: { quantity, dueDate },
       }),
       invalidatesTags: ["Borrow"],
     }),

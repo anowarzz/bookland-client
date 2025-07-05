@@ -24,7 +24,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useCreateBorrowMutation } from "@/redux/api/Borrow/borrowAPI";
 import { format } from "date-fns";
-import { BookOpen, CalendarIcon } from "lucide-react";
+import { BookOpen, CalendarIcon, Loader2 } from "lucide-react";
 import { type ReactNode } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -36,6 +36,7 @@ interface BorrowModalProps {
   onOpenChange: (open: boolean) => void;
   bookTitle: string;
   maxCopies: number;
+  bookId?: string;
 }
 
 type BorrowFormData = {
@@ -49,9 +50,8 @@ const BorrowModal = ({
   onOpenChange,
   bookTitle,
   maxCopies,
+  bookId,
 }: BorrowModalProps) => {
-
-
   const navigate = useNavigate();
   const form = useForm<BorrowFormData>({
     defaultValues: {
@@ -60,28 +60,42 @@ const BorrowModal = ({
     },
   });
 
-  const [createBorrow, {isLoading}] = useCreateBorrowMutation();
-
+  const [createBorrow, { isLoading }] = useCreateBorrowMutation();
 
   const onSubmit: SubmitHandler<BorrowFormData> = async (data) => {
     try {
       console.log("Borrow form submitted:", data);
 
-      const res = await createBorrow({ bookId: "someBookId", ...data }).unwrap();
+      if (!bookId) {
+        toast.error("Book ID is missing", {
+          description: "Cannot borrow book without a valid book ID.",
+          className: "toast-error",
+        });
+        return;
+      }
+
+      const res = await createBorrow({
+        bookId,
+        quantity: data.copies,
+        dueDate: data.dueDate,
+      }).unwrap();
 
       toast.success("Book borrowed successfully", {
         description: `You have borrowed ${data.copies} copy(ies) of "${bookTitle}"`,
+        className: "toast-success",
         action: {
           label: "Hide",
           onClick: () => console.log("Borrowed book"),
         },
       });
+      console.log(res);
 
       navigate("/borrow-summary");
     } catch (error) {
       console.error("Error borrowing book:", error);
       toast.error("Failed to borrow book", {
         description: "Please try again later.",
+        className: "toast-error",
         action: {
           label: "Hide",
           onClick: () => console.log("Error borrowing book"),
@@ -216,18 +230,27 @@ const BorrowModal = ({
                 type="button"
                 variant="outline"
                 onClick={handleCancel}
+                disabled={isLoading}
                 className="h-11 sm:h-10 px-6 text-base sm:text-sm font-medium order-2 sm:order-1"
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
+                disabled={isLoading}
                 className="h-11 sm:h-10 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 flex items-center justify-center gap-2 text-base sm:text-sm font-medium order-1 sm:order-2"
               >
-                <>
-                  <BookOpen size={16} />
-                  Borrow Book
-                </>
+                {isLoading ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Borrowing...
+                  </>
+                ) : (
+                  <>
+                    <BookOpen size={16} />
+                    Borrow Book
+                  </>
+                )}
               </Button>
             </div>
           </form>

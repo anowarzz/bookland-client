@@ -39,6 +39,7 @@ const BookDetails = () => {
       await deleteBook(book._id).unwrap();
       toast.success("Book deleted successfully", {
         description: `"${book.title}" has been deleted from your library`,
+        className: "toast-success",
         duration: 3000,
         action: {
           label: "Hide",
@@ -50,6 +51,7 @@ const BookDetails = () => {
       console.error("Error deleting book:", error);
       toast.error("Failed to delete book", {
         description: "Please try again later.",
+        className: "toast-error",
         duration: 3000,
         action: {
           label: "Hide",
@@ -250,6 +252,7 @@ const BookDetails = () => {
                 onOpenChange={setIsBorrowModalOpen}
                 bookTitle={book.title}
                 maxCopies={book.copies}
+                bookId={book._id}
                 trigger={
                   <Button
                     disabled={!book.available || book.copies === 0}

@@ -69,6 +69,7 @@ const EditBookModal = ({
 
       toast.success("Book has been updated successfully", {
         description: `${res.data.title} has been updated in your library`,
+        className: "toast-success",
         action: {
           label: "Hide",
           onClick: () => console.log("Updated The Book"),
@@ -78,6 +79,7 @@ const EditBookModal = ({
       console.error("Error updating book:", error);
       toast.error("Failed to update book", {
         description: "Please try again later.",
+        className: "toast-error",
         action: {
           label: "Hide",
           onClick: () => console.log("Error While Updating Book"),

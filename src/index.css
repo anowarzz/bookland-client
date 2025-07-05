@@ -121,3 +121,125 @@
     font-family: var(--font-rubik);
   }
 }
+
+/* Custom Toast Styles */
+@layer components {
+  .toast-success {
+    background: linear-gradient(
+      135deg,
+      rgb(59, 130, 246) 0%,
+      rgb(37, 99, 235) 100%
+    ) !important;
+    color: white !important;
+    border: 1px solid rgb(37, 99, 235) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3) !important;
+    font-weight: 500 !important;
+    min-height: 64px !important;
+  }
+
+  .toast-success [data-title] {
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+  }
+
+  .toast-success [data-description] {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    opacity: 0.95 !important;
+  }
+
+  .toast-success [data-button] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .toast-success [data-button]:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .toast-error {
+    background: linear-gradient(
+      135deg,
+      rgb(239, 68, 68) 0%,
+      rgb(220, 38, 38) 100%
+    ) !important;
+    color: white !important;
+    border: 1px solid rgb(220, 38, 38) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3) !important;
+    font-weight: 500 !important;
+    min-height: 64px !important;
+  }
+
+  .toast-error [data-title] {
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+  }
+
+  .toast-error [data-description] {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    opacity: 0.95 !important;
+  }
+
+  .toast-error [data-button] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .toast-error [data-button]:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Toast Icon Styling */
+  .toast-success [data-icon] {
+    color: white !important;
+    opacity: 0.9 !important;
+  }
+
+  .toast-error [data-icon] {
+    color: white !important;
+    opacity: 0.9 !important;
+  }
+
+  /* Close button styling */
+  .toast-success [data-close-button],
+  .toast-error [data-close-button] {
+    color: rgba(255, 255, 255, 0.8) !important;
+    background: transparent !important;
+    border: none !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease !important;
+  }
+
+  .toast-success [data-close-button]:hover,
+  .toast-error [data-close-button]:hover {
+    opacity: 1 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
